@@ -1,12 +1,13 @@
 import React from 'react';
-import { Collapse, Icon, Badge, Tag } from 'antd';
+import { Collapse, Badge, Tag } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
 const Panel = Collapse.Panel;
 export default () => {
   return (
     <Collapse
       bordered={false}
       defaultActiveKey={['1']}
-      expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
+      expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
       style={{ textAlign: 'left' }}
     >
       <Panel header="Thai Character Cluster (TCC)" key="1">

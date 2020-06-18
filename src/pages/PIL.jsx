@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, Upload, Row, Col, Icon, message } from 'antd';
+import { InboxOutlined } from '@ant-design/icons';
 import ContentPILL from '../components/contentPILL';
 import test1 from '../assets/222371.jpg';
 import test2 from '../assets/223370.jpg';
@@ -176,7 +177,7 @@ export default () => {
             }}
           >
             <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
+              <InboxOutlined />
             </p>
             <p className="ant-upload-text">Click or drag file to this area to upload</p>
             <p className="ant-upload-hint">Support only image file</p>

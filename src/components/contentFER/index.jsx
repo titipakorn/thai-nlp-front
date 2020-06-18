@@ -1,5 +1,6 @@
 import React from 'react';
-import { Collapse, Icon, Badge, Tag, Row, Typography } from 'antd';
+import { Collapse, Badge, Tag, Row, Typography } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 const Panel = Collapse.Panel;
 export default props => {
@@ -9,7 +10,7 @@ export default props => {
     <Collapse
       bordered={false}
       defaultActiveKey={['1']}
-      expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
+      expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
     >
       <Row style={{ textAlign: 'center' }}>
         <img src={logo} width="240" height="200" />
@@ -44,9 +45,7 @@ export default props => {
           <Badge status="success" text="資料作成：木内瑠一、萩本新平" />
         </div>
       </Panel>
-      <Panel header="Reference papers" key="2">
-        <p></p>
-      </Panel>
+      <Panel header="Reference papers" key="2"></Panel>
     </Collapse>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Button, Upload, Row, Col, Icon, message } from 'antd';
+import { Card, Button, Upload, Row, Col, message } from 'antd';
+import { InboxOutlined } from '@ant-design/icons';
 import ContentFER from '../components/contentFER';
 import Radar from '../components/Radar';
 import test1 from '../assets/prince_2.jpg';
@@ -19,8 +20,16 @@ export default () => {
   };
   const convert_data = data => {
     let new_data = data.map((v, i) => {
-      return Object.keys(v).map(emotion => {
-        return { item: emotion, user: `u${i}`, score: v[emotion] };
+      return [
+        '幸せ(Happy)',
+        '嫌気(Disgust)',
+        '恐怖(Fear)',
+        '悲しみ(Sad)',
+        '通常(Neutral)',
+        '驚き(Surprise)',
+        '怒り(Angry)',
+      ].map(emotion => {
+        return { item: emotion, user: `顔${i}`, score: v[emotion] };
       });
     });
     return new_data.flat();
@@ -33,7 +42,7 @@ export default () => {
         '恐怖(Fear)': 8,
         '悲しみ(Sad)': 0,
         '通常(Neutral)': 86,
-        '驚き( Surprise)': 0,
+        '驚き(Surprise)': 0,
         '怒り(Angry)': 0,
       },
     ],
@@ -44,7 +53,7 @@ export default () => {
         '恐怖(Fear)': 0,
         '悲しみ(Sad)': 0,
         '通常(Neutral)': 0,
-        '驚き( Surprise)': 0,
+        '驚き(Surprise)': 0,
         '怒り(Angry)': 0,
       },
     ],
@@ -94,7 +103,7 @@ export default () => {
             }}
           >
             <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
+              <InboxOutlined />
             </p>
             <p className="ant-upload-text">Click or drag file to this area to upload</p>
             <p className="ant-upload-hint">Support only image file</p>
