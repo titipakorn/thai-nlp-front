@@ -61,53 +61,29 @@ export default () => {
   return (
     <Card className="ant-advanced-search-form">
       <ContentFER logo={logo} />
-      <Row type="flex">
+      <Row type="flex" style={{ marginTop: 10 }}>
         <Col xs={24} md={12}>
-          <Dragger
-            {...{
-              accept: 'image/*',
-              name: 'file',
-              multiple: false,
-              fileList: fileList,
-              action: `${API_PATH}/fer/`,
-              onChange(info) {
-                const { status, response, name, originFileObj } = info.file;
-                if (status === 'done') {
-                  if ('status' in response) {
-                    if (response.status === 'ok') {
-                      setImageResult(response.result);
-                      getBase64(originFileObj, imageUrl => setImageUrl(imageUrl));
-                    }
-                  }
-                  message.success(`${name} file processed successfully.`);
-                } else if (status === 'error') {
-                  message.error(`${name} file processed failed.`);
-                }
-                let fileList = [...info.fileList];
-
-                // 1. Limit the number of uploaded files
-                // Only to show two recent uploaded files, and old ones will be replaced by the new
-                fileList = fileList.slice(-1);
-
-                // 2. Read from response and show file link
-                fileList = fileList.map(file => {
-                  if (file.response) {
-                    // Component will show file.url as link
-                    file.url = file.response.url;
-                  }
-                  return file;
-                });
-
-                setFileList(fileList);
-              },
-            }}
-          >
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-            <p className="ant-upload-hint">Support only image file</p>
-          </Dragger>
+          <p style={{ fontSize: 16, fontWeight: 600 }}>
+            <Button type="text" disabled>
+              Result
+            </Button>
+          </p>
+          <p style={{ fontSize: 20, fontWeight: 700, textAlign: 'center' }}>
+            {resultImageShow ? (
+              <Radar data={convert_data(resultImageShow)} />
+            ) : ImageUrl ? (
+              <Button onClick={() => setImageResult(SOLUTION[ImageUrl])}> Identify it </Button>
+            ) : (
+              'Please upload the image'
+            )}
+          </p>
+          {!resultImageShow && (
+            <img
+              src={'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='}
+              alt="query"
+              style={{ width: 300, height: 300 }}
+            />
+          )}
         </Col>
         <Col xs={24} md={12}>
           <Row>
@@ -146,16 +122,51 @@ export default () => {
                   style={{ width: 200, height: 200 }}
                 />
               </Col>
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Result:</p>
-              <p style={{ fontSize: 20, fontWeight: 700 }}>
-                {resultImageShow ? (
-                  <Radar data={convert_data(resultImageShow)} />
-                ) : ImageUrl ? (
-                  <Button onClick={() => setImageResult(SOLUTION[ImageUrl])}> Identify it </Button>
-                ) : (
-                  'Please upload the image'
-                )}
-              </p>
+              <Dragger
+                {...{
+                  accept: 'image/*',
+                  name: 'file',
+                  multiple: false,
+                  fileList: fileList,
+                  action: `${API_PATH}/fer/`,
+                  onChange(info) {
+                    const { status, response, name, originFileObj } = info.file;
+                    if (status === 'done') {
+                      if ('status' in response) {
+                        if (response.status === 'ok') {
+                          setImageResult(response.result);
+                          getBase64(originFileObj, imageUrl => setImageUrl(imageUrl));
+                        }
+                      }
+                      message.success(`${name} file processed successfully.`);
+                    } else if (status === 'error') {
+                      message.error(`${name} file processed failed.`);
+                    }
+                    let fileList = [...info.fileList];
+
+                    // 1. Limit the number of uploaded files
+                    // Only to show two recent uploaded files, and old ones will be replaced by the new
+                    fileList = fileList.slice(-1);
+
+                    // 2. Read from response and show file link
+                    fileList = fileList.map(file => {
+                      if (file.response) {
+                        // Component will show file.url as link
+                        file.url = file.response.url;
+                      }
+                      return file;
+                    });
+
+                    setFileList(fileList);
+                  },
+                }}
+              >
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                <p className="ant-upload-hint">Support only image file</p>
+              </Dragger>
             </div>
           </Card>
         </Col>
