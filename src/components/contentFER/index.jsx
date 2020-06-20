@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse, Badge, Tag, Row, Typography } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
+import how from '../../assets/fer_how.png';
 const { Title } = Typography;
 const Panel = Collapse.Panel;
 export default props => {
@@ -24,7 +25,15 @@ export default props => {
         <Tag color="cyan">Contributor</Tag>
         <div>
           <Badge status="success" text="Prof. Dr. Virach Sornlertlamvanich" />
-          <Tag color="blue">@Virach</Tag>
+          <a href="https://virach.com/">
+            <Tag color="blue">@Virach</Tag>
+          </a>
+        </div>
+        <div>
+          <Badge status="success" text="Prof. Dr. Thasanee Charoenporn" />
+        </div>
+        <div>
+          <Badge status="success" text="Assoc. Prof. Dr. Shiori Sasaki" />
         </div>
         <div>
           <Badge status="success" text="Titipakorn Prakayapan" />
@@ -45,7 +54,18 @@ export default props => {
           <Badge status="success" text="資料作成：木内瑠一、萩本新平" />
         </div>
       </Panel>
-      <Panel header="Reference papers" key="2"></Panel>
+      <Panel header="Reference papers" key="2">
+        <p>
+          Tran, L. P. &. T. A., Facial Expression Recognition using Residual Masking Network, 2020
+        </p>
+        <p>
+          Deng, J.; Guo, J.; Yuxiang, Z.; Yu, J.; Kotsia, I. & Zafeiriou, S., RetinaFace:
+          Single-stage Dense Face Localisation in the Wild, 2019
+        </p>
+      </Panel>
+      <Panel header="Process" key="3">
+        <img src={how} style={{ width: 800, height: 100 }} />
+      </Panel>
     </Collapse>
   );
 };
