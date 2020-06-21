@@ -119,7 +119,7 @@ export default () => {
                     'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
                   }
                   alt="query"
-                  style={{ width: 200, height: 200 }}
+                  style={{ width: 300 }}
                 />
               </Col>
               <Dragger
@@ -131,11 +131,15 @@ export default () => {
                   action: `${API_PATH}/fer/`,
                   onChange(info) {
                     const { status, response, name, originFileObj } = info.file;
+                    function fileNameAndExt(str) {
+                      return str.substr(0, str.lastIndexOf('.'));
+                    }
                     if (status === 'done') {
                       if ('status' in response) {
                         if (response.status === 'ok') {
                           setImageResult(response.result);
-                          getBase64(originFileObj, imageUrl => setImageUrl(imageUrl));
+                          setImageUrl(`${API_PATH}/uploads/${fileNameAndExt(name)}_processed.jpg`);
+                          //getBase64(originFileObj, imageUrl => setImageUrl(imageUrl));
                         }
                       }
                       message.success(`${name} file processed successfully.`);

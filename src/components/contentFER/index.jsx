@@ -22,6 +22,7 @@ export default props => {
           Facial expression recognition plays an important role in communicating the emotions and
           intentions of human beings.
         </p>
+        <p>Only limited for 10 faces and file size less than 10 MB</p>
         <Tag color="cyan">Contributor</Tag>
         <div>
           <Badge status="success" text="Prof. Dr. Virach Sornlertlamvanich" />
