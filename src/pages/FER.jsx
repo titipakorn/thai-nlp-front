@@ -6,7 +6,6 @@ import Radar from '../components/Radar';
 import test1 from '../assets/prince_2.jpg';
 import test2 from '../assets/hap3.jpg';
 import logo from '../assets/mu_logo.jpg';
-const API_PATH = 'http://go.siitai.xyz:8282/b_api';
 const { Dragger } = Upload;
 
 export default () => {
@@ -128,7 +127,7 @@ export default () => {
                   name: 'file',
                   multiple: false,
                   fileList: fileList,
-                  action: `${API_PATH}/fer/`,
+                  action: `${osaka_api}/b_api/fer/`,
                   onChange(info) {
                     const { status, response, name, originFileObj } = info.file;
                     function fileNameAndExt(str) {
@@ -138,7 +137,9 @@ export default () => {
                       if ('status' in response) {
                         if (response.status === 'ok') {
                           setImageResult(response.result);
-                          setImageUrl(`${API_PATH}/uploads/${fileNameAndExt(name)}_processed.jpg`);
+                          setImageUrl(
+                            `${osaka_api}/b_api/uploads/${fileNameAndExt(name)}_processed.jpg`,
+                          );
                           //getBase64(originFileObj, imageUrl => setImageUrl(imageUrl));
                         }
                       }

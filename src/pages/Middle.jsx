@@ -3,12 +3,13 @@ import { Card, Row, Col, Divider, Button, Input, Icon, Upload, notification } fr
 import { InboxOutlined } from '@ant-design/icons';
 import ContentNER from '../components/contentNER';
 import ContentTCC from '../components/contentTCC';
+import ContentWS from '../components/contentWS';
+import ContentSS from '../components/contentSS';
 import { CloseOutlined, CopyOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 const { Dragger } = Upload;
 const TYPING_TIMER_LENGTH = 400;
 const MAX_TYPING_LENGTH = 5000;
-const API_PATH = 'http://go.siitai.xyz:8282/b_api';
 var typing = false;
 var lastTypingTime;
 notification.config({
@@ -16,21 +17,29 @@ notification.config({
   bottom: 50,
   duration: 2,
 });
-export default ({ method }) => {
+export default ({ method, customUrl }) => {
   const [queryInput, setInput] = useState('');
   const [fileList, setFileList] = useState([]);
   const [downloadResult, setDownloadResult] = useState('');
-  const [resultShow, setResult] = useState({ ner: '', tcc: '' });
+  const [resultShow, setResult] = useState({ ss: '', ws: '', ner: '', tcc: '' });
 
   const methods = (type, str) => {
     var formData = new FormData();
     formData.append('text', str);
-    const url = `${API_PATH}/${type}/`;
-    return fetch(url, {
-      method: 'post',
-      mode: 'cors',
-      body: formData,
-    })
+    const url = `${osaka_api}/b_api/${type}/`;
+
+    let result = customUrl
+      ? fetch(customUrl, {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: str }),
+        })
+      : fetch(url, {
+          method: 'post',
+          mode: 'cors',
+          body: formData,
+        });
+    return result
       .catch(error => {
         console.log(error.message);
       })
@@ -75,9 +84,26 @@ export default ({ method }) => {
       message: 'Copied!',
     });
   };
+
+  let content = null;
+
+  switch (method) {
+    case 'tcc':
+      content = <ContentTCC />;
+      break;
+    case 'ner':
+      content = <ContentNER />;
+      break;
+    case 'ws':
+      content = <ContentWS />;
+      break;
+    default:
+      content = <ContentSS />;
+    // code block
+  }
   return (
     <Card className="ant-advanced-search-form">
-      {method === 'tcc' ? <ContentTCC /> : <ContentNER />}
+      {content}
 
       <Row type="flex">
         <Col xs={24} md={12}>
@@ -136,7 +162,7 @@ export default ({ method }) => {
               name: 'file',
               multiple: false,
               fileList: fileList,
-              action: `${API_PATH}/${method}/`,
+              action: `${osaka_api}/b_api/${method}/`,
               onChange(info) {
                 const { status, response, name } = info.file;
                 if (status === 'done') {
@@ -144,7 +170,7 @@ export default ({ method }) => {
                     setDownloadResult(`${API_PATH}${response.url}`);
                   }
                   const link = document.createElement('a');
-                  link.href = `${API_PATH}${response.url}`;
+                  link.href = `${osaka_api}/b_api${response.url}`;
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);

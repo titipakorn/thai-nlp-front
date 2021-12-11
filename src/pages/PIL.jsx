@@ -4,7 +4,6 @@ import { InboxOutlined } from '@ant-design/icons';
 import ContentPILL from '../components/contentPILL';
 import test1 from '../assets/222371.jpg';
 import test2 from '../assets/223370.jpg';
-const API_PATH = 'http://go.siitai.xyz:8282/b_api';
 const { Dragger } = Upload;
 const SOLUTION = { [test1]: 'madiplot', [test2]: 'apolets' };
 const MEDICAL_INFO = {
@@ -143,7 +142,7 @@ export default () => {
               name: 'file',
               multiple: false,
               fileList: fileList,
-              action: `${API_PATH}/pill/`,
+              action: `${osaka_api}/b_api/pill/`,
               onChange(info) {
                 const { status, response, name, originFileObj } = info.file;
                 if (status === 'done') {

@@ -5,6 +5,8 @@ export default {
   'menu.ner': 'Name Entity Tagging',
   'menu.tcc': 'Thai Character Clustering',
   'menu.fer': 'Facial Expression Recognition',
+  'menu.ss': 'Sentence Segmentation',
+  'menu.ws': 'Word Segmentation',
   'menu.more-blocks': 'More Blocks',
   'menu.home': 'Home',
   'menu.admin': 'Admin',

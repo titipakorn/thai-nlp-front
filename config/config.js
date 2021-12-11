@@ -102,6 +102,18 @@ export default {
           component: './NER',
         },
         {
+          path: '/ws',
+          name: 'ws',
+          icon: 'function',
+          component: './WordSegment',
+        },
+        {
+          path: '/ss',
+          name: 'ss',
+          icon: 'function',
+          component: './SentenceSegment',
+        },
+        {
           path: '/pill',
           name: 'pill',
           icon: 'heart',
@@ -128,6 +140,7 @@ export default {
     // ...darkTheme,
   },
   define: {
+    osaka_api: 'https://babyai.org',
     REACT_APP_ENV: REACT_APP_ENV || false,
     ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION:
       ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
