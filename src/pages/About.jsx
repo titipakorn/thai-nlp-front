@@ -3,7 +3,7 @@ import { Card, Badge, Tag } from 'antd';
 
 export default () => (
   <Card
-    title="@2020 API Foundry by Virach Labo team"
+    title="@2021 API Foundry by Virach Labo team"
     headStyle={{ textAlign: 'center' }}
     bodyStyle={{ flex: 1, display: 'flex', flexDirection: 'column' }}
   >

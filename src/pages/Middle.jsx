@@ -22,34 +22,48 @@ export default ({ method, customUrl }) => {
   const [fileList, setFileList] = useState([]);
   const [downloadResult, setDownloadResult] = useState('');
   const [resultShow, setResult] = useState({ ss: '', ws: '', ner: '', tcc: '' });
-
+  const reflectUrl = { ws: 'wordpos_tokenize', ner: 'ner', tcc: 'tcc' };
   const methods = (type, str) => {
     var formData = new FormData();
     formData.append('text', str);
-    const url = `${osaka_api}/b_api/${type}/`;
 
     let result = customUrl
-      ? fetch(customUrl, {
+      ? fetch(
+          customUrl,
+          type == 'ss'
+            ? {
+                method: 'post',
+                body: formData,
+              }
+            : {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: str }),
+              },
+        )
+      : fetch(`${osaka_api}/nlp/${reflectUrl[type]}`, {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: str }),
-        })
-      : fetch(url, {
-          method: 'post',
-          mode: 'cors',
-          body: formData,
         });
     return result
       .catch(error => {
         console.log(error.message);
       })
       .then(results => {
-        return results.json();
+        if (results) {
+          return results.json();
+        } else {
+          return { status: 'error', message: 'No results' };
+        }
       })
       .then(data => {
         if (data.status === 'ok') {
           return setResult({ ...resultShow, [type]: data.result });
         } else {
+          if (type == 'ss') {
+            return setResult({ ...resultShow, [type]: data.sentences.join('|') });
+          }
           return setResult({ ...resultShow, [type]: "Something's wrong" });
         }
       });
@@ -155,7 +169,7 @@ export default ({ method, customUrl }) => {
         </Col>
       </Row>
       <Row type="flex">
-        <Col xs={24} md={12}>
+        {/* <Col xs={24} md={12}>
           <Dragger
             {...{
               accept: 'text/plain',
@@ -203,8 +217,8 @@ export default ({ method, customUrl }) => {
             <p className="ant-upload-text">Click or drag file to this area to upload</p>
             <p className="ant-upload-hint">Support only .text file</p>
           </Dragger>
-        </Col>
-        <Col xs={24} md={12}>
+        </Col> */}
+        {/* <Col xs={24} md={12}>
           {downloadResult !== '' && (
             <a href={downloadResult}>
               <Card>
@@ -214,7 +228,7 @@ export default ({ method, customUrl }) => {
               </Card>
             </a>
           )}
-        </Col>
+        </Col> */}
       </Row>
     </Card>
   );

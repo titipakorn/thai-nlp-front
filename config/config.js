@@ -113,18 +113,18 @@ export default {
           icon: 'function',
           component: './SentenceSegment',
         },
-        {
-          path: '/pill',
-          name: 'pill',
-          icon: 'heart',
-          component: './PIL',
-        },
-        {
-          path: '/fer',
-          name: 'fer',
-          icon: 'smile',
-          component: './FER',
-        },
+        // {
+        //   path: '/pill',
+        //   name: 'pill',
+        //   icon: 'heart',
+        //   component: './PIL',
+        // },
+        // {
+        //   path: '/fer',
+        //   name: 'fer',
+        //   icon: 'smile',
+        //   component: './FER',
+        // },
         {
           component: './404',
         },
@@ -140,7 +140,7 @@ export default {
     // ...darkTheme,
   },
   define: {
-    osaka_api: 'https://babyai.org',
+    osaka_api: 'https://titipakorn.xyz',
     REACT_APP_ENV: REACT_APP_ENV || false,
     ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION:
       ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。

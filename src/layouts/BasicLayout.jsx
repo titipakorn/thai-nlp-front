@@ -38,7 +38,7 @@ const menuDataRender = menuList =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright="2020 Virach Labo"
+    copyright="2021 Virach Labo"
     links={[
       {
         key: 'Baby AI',
